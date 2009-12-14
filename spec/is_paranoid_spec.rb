@@ -122,6 +122,17 @@ describe IsParanoid do
       person.androids.size.should == 1
     end
   end
+  
+  describe 'finding not-destroyed models' do
+    it 'should be able to find records in an association that is named after the class' do
+      @r2d2.components.should be_present
+    end
+    
+    it 'should be able to find records in an association that is not named after the class' do
+      @r2d2.dongles.should be_present
+      @r2d2.lights.should be_present
+    end
+  end
 
   describe 'calculations' do
     it "should have a proper count inclusively and exclusively of destroyed items" do

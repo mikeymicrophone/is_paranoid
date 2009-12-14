@@ -82,5 +82,10 @@ ActiveRecord::Schema.define(:version => 20090317164830) do
     t.string   "name"
     t.datetime "deleted_at"
   end
+  
+  create_table "lamps", :force => true do |t|
+    t.string   "color"
+    t.string   "brightness"
+  end
 
 end

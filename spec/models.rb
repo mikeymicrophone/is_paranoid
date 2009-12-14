@@ -7,6 +7,8 @@ class Android < ActiveRecord::Base #:nodoc:
   is_paranoid
   validates_uniqueness_of :name
   has_many :components, :dependent => :destroy
+  has_many :dongles, :class_name => 'Component'
+  has_many :lights, :through => :dongles, :class_name => 'Lamp'
   has_one :sticker
   has_many :memories, :foreign_key => 'parent_id'
   has_many :dents
@@ -20,6 +22,10 @@ class Android < ActiveRecord::Base #:nodoc:
   def raise_hell
     raise "hell"
   end
+end
+
+class Lamp < ActiveRecord::Base
+  belongs_to :component
 end
 
 class Dent < ActiveRecord::Base #:nodoc:
@@ -43,6 +49,7 @@ class Component < ActiveRecord::Base #:nodoc:
   is_paranoid
   belongs_to :android, :dependent => :destroy
   has_many :sub_components, :dependent => :destroy
+  has_many :lights, :class_name => 'Lamp'
   NEW_NAME = 'Something Else!'
 
   after_destroy :change_name
