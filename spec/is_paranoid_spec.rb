@@ -127,15 +127,22 @@ describe IsParanoid do
     before do
       @r2d2.dongles.create
       @r2d2.dongles.first.lights.create
+      @r2d2.power_sources.create
+      @r2d2.power_sources.first.weapons.create
     end
     
-    it 'should be able to find records in an association that is named after the class' do
+    it 'should find records in an association that is named after the class' do
       @r2d2.components.should be_present
     end
     
-    it 'should be able to find records in an association that is not named after the class' do
+    it 'should find records in an association that is not named after the class' do
       @r2d2.dongles.should be_present
       @r2d2.lights.should be_present
+    end
+    
+    it 'should find records in an association that is not named after the class or the table' do
+      @r2d2.power_sources.should be_present
+      @r2d2.weapons.should be_present
     end
   end
 

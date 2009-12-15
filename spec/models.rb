@@ -7,14 +7,16 @@ class Android < ActiveRecord::Base #:nodoc:
   is_paranoid
   validates_uniqueness_of :name
   has_many :components, :dependent => :destroy
-  has_many :dongles, :class_name => 'Component'
-  has_many :lights, :through => :dongles, :class_name => 'Lamp'
   has_one :sticker
   has_many :memories, :foreign_key => 'parent_id'
   has_many :dents
   has_many :dings, :through => :dents
   has_many :scratches, :through => :dents
   has_and_belongs_to_many :places
+  has_many :dongles, :class_name => 'Component'
+  has_many :lights, :through => :dongles, :class_name => 'Lamp'
+  has_many :power_sources, :class_name => 'Battery'
+  has_many :weapons, :through => :power_sources, :class_name => 'Component'
 
   # this code is to ensure that our destroy and restore methods
   # work without triggering before/after_update callbacks
@@ -26,6 +28,11 @@ end
 
 class Lamp < ActiveRecord::Base
   belongs_to :component
+end
+
+class Battery < ActiveRecord::Base
+  set_table_name 'lamps'
+  has_many :weapons, :class_name => 'Component'
 end
 
 class Dent < ActiveRecord::Base #:nodoc:

@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20090317164830) do
   create_table "components", :force => true do |t|
     t.string   "name"
     t.integer  "android_id"
+    t.integer  "battery_id"
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -84,10 +85,11 @@ ActiveRecord::Schema.define(:version => 20090317164830) do
   end
   
   create_table "lamps", :force => true do |t|
+    t.integer  "android_id"
     t.integer  "component_id"
     t.string   "color"
     t.string   "brightness"
     t.datetime "deleted_at"
   end
-
+  
 end
