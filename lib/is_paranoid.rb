@@ -42,8 +42,13 @@ module IsParanoid
     # ensure that we respect the is_paranoid conditions when being loaded as a has_many :through
     # NOTE: this only works if is_paranoid is declared before has_many relationships.
     def has_many(association_id, options = {}, &extension)
-       if options.key?(:through)
-        conditions = "#{options[:through].to_s.pluralize}.#{destroyed_field} #{is_or_equals_not_destroyed}"
+      if options.key?(:through)
+        if options.key?(:class_name)
+          table_name = options[:class_name].underscore
+        else
+          table_name = options[:through]
+        end
+        conditions = "#{table_name.to_s.pluralize}.#{destroyed_field} #{is_or_equals_not_destroyed}"
         options[:conditions] = "(" + [options[:conditions], conditions].compact.join(") AND (") + ")"
       end
       super

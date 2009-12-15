@@ -84,8 +84,10 @@ ActiveRecord::Schema.define(:version => 20090317164830) do
   end
   
   create_table "lamps", :force => true do |t|
+    t.integer  "component_id"
     t.string   "color"
     t.string   "brightness"
+    t.datetime "deleted_at"
   end
 
 end

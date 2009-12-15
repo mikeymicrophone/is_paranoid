@@ -124,6 +124,11 @@ describe IsParanoid do
   end
   
   describe 'finding not-destroyed models' do
+    before do
+      @r2d2.dongles.create
+      @r2d2.dongles.first.lights.create
+    end
+    
     it 'should be able to find records in an association that is named after the class' do
       @r2d2.components.should be_present
     end
